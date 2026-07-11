@@ -170,12 +170,12 @@ const Home = ({ currentLanguage }) => {
             </h3>
             <LogoLoop 
               logos={logos} 
-              speed={100} 
-              logoHeight={160} 
-              gap={70} 
+              speed={75} 
+              logoHeight={110} 
+              gap={40} 
               pauseOnHover={true} 
               fadeOut={false} 
-              scaleOnHover={false} 
+              scaleOnHover={true} 
               isRTL={currentLanguage === 'ar'} 
             />
           </div>

@@ -38,4 +38,6 @@ dist-ssr
 .env.vercel
 database.db
 db.json
+stats.html
+
 

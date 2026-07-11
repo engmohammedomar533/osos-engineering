@@ -39,14 +39,26 @@
 
 .logoloop__item {
   flex: 0 0 auto;
-  width: var(--logoloop-logoHeight);
-  height: var(--logoloop-logoHeight);
+  width: calc(var(--logoloop-logoHeight) * 1.55) !important; /* Uniform rectangular ratio (approx 220px wide for 140px height) */
+  height: var(--logoloop-logoHeight) !important;
   margin-inline-end: var(--logoloop-gap);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent !important;
+  background-color: #ffffff !important; /* Uniform clean white background card so all logos blend seamlessly */
+  border: 1px solid rgba(0, 0, 0, 0.06); /* Thin premium border */
+  border-radius: 12px; /* Smooth rounded corners */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.02); /* Very soft shadow */
   overflow: hidden;
+  padding: 14px 20px; /* Padding to keep logos neatly inside boundaries */
+  box-sizing: border-box;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth hover transition */
+}
+
+.logoloop__item:hover {
+  transform: translateY(-4px); /* Premium lift effect */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); /* Deeper shadow on hover */
+  border-color: rgba(189, 160, 84, 0.4); /* Highlight border using brand color accent */
 }
 
 .logoloop__item:last-child {
@@ -58,18 +70,17 @@
 }
 
 .logoloop__item img {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 100%;
+  max-height: 100%;
   width: auto;
   height: auto;
   display: block;
-  object-fit: contain;
+  object-fit: contain; /* Retain original logo proportions without stretching */
   background-color: transparent !important;
   image-rendering: -webkit-optimize-contrast;
   -webkit-user-drag: none;
   pointer-events: none;
-  /* Links handle interaction */
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .logoloop--scale-hover .logoloop__item {
@@ -78,12 +89,12 @@
 
 .logoloop--scale-hover .logoloop__item:hover img,
 .logoloop--scale-hover .logoloop__item:hover .logoloop__node {
-  transform: scale(1.2);
+  transform: scale(1.08); /* Gentle scale on hover */
   transform-origin: center center;
 }
 
 .logoloop--scale-hover .logoloop__node {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .logoloop__link {
