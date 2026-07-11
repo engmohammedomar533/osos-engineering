@@ -1,0 +1,19 @@
+.photo-albums {
+  padding: 30px 0;
+}
+
+
+
+.circular-gallery-container {
+  width: 100%;
+  height: 750px; /* Adjust height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.circular-gallery {
+  width: 100%;
+  height: 100%;
+}

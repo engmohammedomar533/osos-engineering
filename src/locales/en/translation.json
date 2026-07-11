@@ -1,0 +1,13 @@
+{
+  "testPage": {
+    "title": "Test Page",
+    "description": "This is a test page for various components and features.",
+    "feedbackBoxTitle": "Visitor Feedback",
+    "feedbackPlaceholder": "Your feedback...",
+    "sendFeedbackButton": "Send Feedback",
+    "submittingMessage": "Submitting feedback...",
+    "successMessage": "Thank you for your feedback!",
+    "errorMessage": "Failed to send feedback. Please try again.",
+    "networkErrorMessage": "An error occurred. Please try again later."
+  }
+}

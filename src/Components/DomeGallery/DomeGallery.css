@@ -1,0 +1,82 @@
+.dome-gallery-container {
+  width: 100%;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  perspective: 1200px;
+  position: relative;
+  cursor: grab;
+  touch-action: none; /* Added for mobile touch control */
+}
+
+.dome-gallery {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+}
+
+.dome-gallery-image {
+  position: absolute;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dome-gallery-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%; /* Smaller width */
+  height: 90%; /* Smaller height */
+  max-width: 800px; /* Max width for larger screens */
+  max-height: 600px; /* Max height for larger screens */
+  background-color: rgba(0, 0, 0, 0.7); /* More transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px); /* Added blur effect */
+  border-radius: 15px; /* Rounded corners for the overlay */
+  padding: 20px; /* Padding inside the overlay */
+}
+
+.dome-gallery-opened-image {
+  max-width: 100%; /* Image fills the overlay */
+  max-height: 100%; /* Image fills the overlay */
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  border: 5px solid #fff; /* Added white border */
+}
+
+.dome-gallery-close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem; /* Larger font size */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+  color: #333; /* Darker text color */
+}
+
+.dome-gallery-close-button:hover {
+  background: #eee;
+}

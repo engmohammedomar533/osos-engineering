@@ -1,0 +1,13 @@
+{
+  "testPage": {
+    "title": "صفحة الاختبار",
+    "description": "هذه صفحة اختبار لمكونات وميزات مختلفة.",
+    "feedbackBoxTitle": "ملاحظات الزوار",
+    "feedbackPlaceholder": "ملاحظاتك...",
+    "sendFeedbackButton": "إرسال الملاحظات",
+    "submittingMessage": "جاري إرسال الملاحظات...",
+    "successMessage": "شكرا لك على ملاحظاتك!",
+    "errorMessage": "فشل إرسال الملاحظات. الرجاء المحاولة مرة أخرى.",
+    "networkErrorMessage": "حدث خطأ. الرجاء المحاولة مرة أخرى لاحقا."
+  }
+}

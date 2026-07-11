@@ -1,0 +1,311 @@
+/*
+	Installed from https://reactbits.dev/default/
+*/
+
+.card-nav-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1280px;
+  z-index: 99;
+  box-sizing: border-box;
+}
+
+.card-nav {
+  display: block;
+  height: 60px;
+  padding: 0;
+  background-color: white;
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  will-change: height;
+}
+
+.card-nav-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.45rem 0.55rem 1.1rem;
+  z-index: 2;
+}
+
+.hamburger-menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 6px;
+}
+
+.hamburger-menu:hover .hamburger-line {
+  opacity: 0.75;
+}
+
+.hamburger-line {
+  width: 30px;
+  height: 2px;
+  background-color: currentColor;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease,
+    margin 0.3s ease;
+  transform-origin: 50% 50%;
+}
+
+.hamburger-menu.open .hamburger-line:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.hamburger-menu.open .hamburger-line:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.logo {
+  height: 28px;
+}
+
+.scroll-velocity-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1; /* Allows it to take available space */
+  height: 100%;
+  text-align: center;
+}
+
+.navbar-scroll-velocity {
+  font-weight: bold;
+  color: #1B365C; /* Example color, adjust to match design */
+  white-space: nowrap; /* Keep text on a single line for animation */
+
+  /* Override ScrollVelocity internal styles */
+  .scroller {
+    font-size: 10px !important; /* Adjust as needed for overall size */
+    line-height: 1em !important; /* Ensure lines are close but don't overlap */
+    font-family: var(--font-family-base); /* Apply website font */
+  }
+
+  .scroller span {
+    font-size: 1em !important; /* Relative to .scroller font-size */
+    line-height: 1em !important; /* Ensure lines are close but don't overlap */
+  }
+}
+
+
+
+
+.card-nav-cta-button {
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: calc(0.75rem - 0.35rem);
+  padding: 0 1rem;
+  height: 100%;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-nav-cta-button:hover {
+  background-color: #333;
+}
+
+.card-nav-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  padding: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-nav.open .card-nav-content {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.nav-card {
+  height: 100%;
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: calc(0.75rem - 0.2rem);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  gap: 8px;
+  user-select: none;
+}
+
+.nav-card-label {
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.nav-card-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-nav-content .nav-card:first-child .nav-card-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  gap: 2px 16px;
+}
+
+.nav-card-link {
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-card-link:hover {
+  opacity: 0.75;
+}
+
+@media (max-width: 768px) {
+  .card-nav-container {
+    width: 90%;
+    top: 1.2em;
+  }
+
+  .card-nav-top {
+    padding: 0.5rem 1rem;
+    justify-content: space-between;
+  }
+
+  
+
+  .card-nav-cta-button {
+    display: none;
+  }
+
+  /* Default LTR (English) order */
+  html[dir="ltr"] .hamburger-menu {
+    order: 1; /* Dropdown on the left */
+  }
+
+  html[dir="ltr"] .logo-container {
+    order: 2; /* Logo in the middle */
+  }
+
+  html[dir="ltr"] .lang-switch {
+    order: 3; /* Language button on the right */
+  }
+
+  /* RTL (Arabic) order */
+  html[dir="rtl"] .hamburger-menu {
+    order: 3; /* Dropdown on the right */
+  }
+
+  html[dir="rtl"] .logo-container {
+    order: 2; /* Logo in the middle */
+  }
+
+  html[dir="rtl"] .lang-switch {
+    order: 1; /* Language button on the left */
+  }
+
+  .scroll-velocity-container {
+    order: 2; /* Ensure it's in the middle for both LTR and RTL */
+    flex-grow: 1;
+    text-align: center;
+    max-width: 64%; /* Reduce size by 20% */
+  }
+
+  .navbar-scroll-velocity .parallax {
+    max-width: 80%; /* Reduce size by 20% */
+    margin: 0 auto; /* Center the parallax container */
+  }
+
+  .navbar-scroll-velocity .scroller {
+    font-size: 10px !important; /* Smaller font size for mobile */
+    line-height: 1em !important;
+    overflow: hidden !important;
+  }
+
+  
+
+  .card-nav-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 0.5rem;
+    bottom: 0;
+    justify-content: flex-start;
+  }
+
+  .nav-card {
+    height: auto;
+    min-height: 60px;
+    flex: 1 1 auto;
+    max-height: none;
+  }
+
+  .nav-card-label {
+    font-size: 18px;
+  }
+
+  .nav-card-link {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navbar-scroll-velocity .scroller {
+    font-size: 14px !important; /* Adjust as needed */
+    line-height: 1em !important;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .navbar-scroll-velocity .scroller {
+    font-size: 20px !important; /* Adjust as needed */
+    line-height: 1em !important;
+  }
+}
+
+@media (min-width: 1441px) {
+  .navbar-scroll-velocity .scroller {
+    font-size: 20px !important; /* Adjust as needed */
+    line-height: 1em !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .scroll-velocity-container {
+    display: none;
+  }
+}

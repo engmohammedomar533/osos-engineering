@@ -1,0 +1,25 @@
+/* Hide by default on larger screens */
+.mobile-only-cards {
+  display: none;
+}
+
+/* Show only on screens smaller than a certain width (e.g., 768px for typical mobile) */
+@media (max-width: 768px) {
+  .mobile-only-cards {
+    display: flex; /* or block, grid, etc., depending on desired layout */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Adjust as needed for spacing between cards */
+    margin-top: 40px; /* Add some space from the chart above */
+  }
+  .org-chart-container {
+    display: none; /* Hide the tree chart on mobile */
+  }
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}

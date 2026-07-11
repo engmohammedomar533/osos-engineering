@@ -1,0 +1,285 @@
+/* --- Locations Grid & Layout --- */
+.locations-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 1.5rem 0 1.5rem; /* Clears floating header menu bar */
+}
+
+.osos-locations-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+@media (max-width: 900px) {
+  .osos-locations-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .osos-map-wrapper {
+    height: 400px !important;
+    min-height: 400px !important;
+  }
+}
+
+/* --- Sidebar Branch Selector --- */
+.osos-locations-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-prompt-text {
+  font-size: 1rem;
+  color: var(--color-text-secondary, #666);
+  margin-bottom: 1.2rem;
+}
+
+.branch-selector-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* --- Branch Card Tabs --- */
+.branch-card-tab {
+  background: var(--color-surface, #fff);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.branch-card-tab:hover {
+  transform: translateY(-3px);
+  border-color: rgba(189, 160, 84, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.branch-card-tab.active {
+  background: var(--color-surface, #fff);
+  border-color: var(--color-accent, #bda054);
+  box-shadow: 0 8px 25px rgba(189, 160, 84, 0.08);
+}
+
+.branch-card-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.tab-marker-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.branch-card-tab.active .tab-marker-dot {
+  background: var(--color-accent, #bda054);
+  box-shadow: 0 0 0 4px rgba(189, 160, 84, 0.2);
+}
+
+.branch-card-header-row h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary, #1b365c);
+  margin: 0;
+}
+
+.branch-card-body-details {
+  padding-left: 1.3rem;
+}
+
+html[dir="rtl"] .branch-card-body-details {
+  padding-left: 0;
+  padding-right: 1.3rem;
+}
+
+.sidebar-hours-header {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #666);
+  margin: 0 0 0.4rem 0;
+}
+
+.sidebar-hours-list {
+  margin: 0 0 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-hours-list li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary, #555);
+  margin-bottom: 0.2rem;
+}
+
+.sidebar-directions-btn {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent, #bda054);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-directions-btn:hover {
+  opacity: 0.8;
+}
+
+/* --- Map Container & Wrapper --- */
+.osos-map-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  min-height: 500px;
+  background: #0f1115; /* Dark background matches tiles while loading */
+}
+
+.interactive-leaflet-map {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  z-index: 1;
+}
+
+/* --- Custom Leaflet Marker (Pulsing Div Icon) --- */
+.custom-map-marker {
+  position: relative;
+}
+
+.marker-pin {
+  width: 24px;
+  height: 24px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--color-accent, #bda054);
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -12px 0 0 -12px;
+  box-shadow: 0 4px 10px rgba(189, 160, 84, 0.4);
+}
+
+.marker-pin::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: #1b365c;
+  border-radius: 50%;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+}
+
+.marker-pulse {
+  background: rgba(189, 160, 84, 0.25);
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -24px 0 0 -24px;
+  transform: rotateX(55deg);
+  z-index: -2;
+  animation: markerPulse 1.6s ease-out infinite;
+}
+
+@keyframes markerPulse {
+  0% {
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2, 1.2);
+    opacity: 0;
+  }
+}
+
+/* --- Leaflet Popup Theming --- */
+.leaflet-popup-content-wrapper {
+  background: #1b263b !important; /* Navy-dark glass theme popup */
+  border: 1px solid rgba(189, 160, 84, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  padding: 0.5rem !important;
+}
+
+.leaflet-popup-tip {
+  background: #1b263b !important;
+  border-left: 1px solid rgba(189, 160, 84, 0.3) !important;
+  border-bottom: 1px solid rgba(189, 160, 84, 0.3) !important;
+}
+
+.map-popup-content {
+  padding: 0.2rem;
+  max-width: 250px;
+}
+
+.map-popup-content h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.6rem 0;
+  line-height: 1.4;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.4rem;
+}
+
+.popup-working-hours-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent, #bda054);
+  margin: 0 0 0.3rem 0;
+}
+
+.popup-working-hours-list {
+  margin: 0 0 0.8rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.popup-working-hours-list li {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.2rem;
+}
+
+.popup-directions-btn {
+  display: inline-block;
+  background: var(--color-accent, #bda054);
+  color: #fff !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.popup-directions-btn:hover {
+  background: #9c8340;
+}
+
+/* Fix leaflet pane overflow issue in Vite layout wrapper */
+.leaflet-container {
+  font-family: inherit !important;
+}
