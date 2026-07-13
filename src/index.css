@@ -1170,7 +1170,8 @@ select.form-control {
     right: 10px;
     bottom: 10px;
     background: url('./Images/osos brand guidlines 4_Page_01 - Copy.jpg');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
     animation: diagramReveal 2s ease-out 1s both;
     mix-blend-mode: multiply;
