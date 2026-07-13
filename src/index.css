@@ -934,9 +934,10 @@ select.form-control {
 }
 
 .logo-img {
-    height: 32px; /* Adjust as needed */
+    height: 42px; /* Adjusted to 42px for enhanced brand logo readability */
     width: auto;
-    margin-right: 10px; /* Adjust as needed */
+    margin-right: 10px;
+    object-fit: contain;
 }
 
 .logo-assembly {
