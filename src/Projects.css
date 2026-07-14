@@ -1,24 +1,47 @@
 /* --- Filter Tabs --- */
 .filter-tabs-container {
-  display: flex;
-  justify-content: center;
+  position: relative;
+  width: 100%;
   margin-bottom: 3rem;
+  /* Fade-out edges to hint scrollability */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 24px,
+    black calc(100% - 24px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 24px,
+    black calc(100% - 24px),
+    transparent 100%
+  );
 }
 
 .filter-tabs {
   display: flex;
   gap: 0.5rem;
   background: var(--color-background-soft, #f4f6f8);
-  padding: 0.35rem;
+  padding: 0.35rem 1.5rem; /* Extra horizontal padding so first/last tabs aren't hidden under fade */
   border-radius: 30px;
   border: 1px solid var(--color-border-glow, rgba(0, 0, 0, 0.05));
-  max-width: 100%;
+  width: 100%;
   overflow-x: auto;
-  scrollbar-width: none; /* Hide scrollbars for firefox */
+  scroll-behavior: smooth;
+  cursor: grab;           /* Show grab cursor on desktop to hint draggability */
+  user-select: none;      /* Prevent text selection while dragging */
+  scrollbar-width: none;  /* Hide scrollbar Firefox */
+}
+
+.filter-tabs.dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
 }
 
 .filter-tabs::-webkit-scrollbar {
-  display: none; /* Hide scrollbars for chrome/safari */
+  display: none; /* Hide scrollbar Chrome/Safari */
 }
 
 .filter-tab {

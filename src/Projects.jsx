@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './Projects.css';
 import Carousel from './Components/Carousel/Carousel';
 import useSEO from './hooks/useSEO';
@@ -19,6 +19,34 @@ const Projects = ({ currentLanguage }) => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [loading, setLoading] = useState(true);
   const [hoveredProjectId, setHoveredProjectId] = useState(null);
+
+  // Drag-to-scroll for desktop filter tabs
+  const tabsRef = useRef(null);
+  const dragState = useRef({ isDown: false, startX: 0, scrollLeft: 0, moved: false });
+
+  const onTabsMouseDown = useCallback((e) => {
+    dragState.current = { isDown: true, startX: e.pageX - tabsRef.current.offsetLeft, scrollLeft: tabsRef.current.scrollLeft, moved: false };
+    tabsRef.current.classList.add('dragging');
+  }, []);
+
+  const onTabsMouseLeave = useCallback(() => {
+    dragState.current.isDown = false;
+    tabsRef.current?.classList.remove('dragging');
+  }, []);
+
+  const onTabsMouseUp = useCallback(() => {
+    dragState.current.isDown = false;
+    tabsRef.current?.classList.remove('dragging');
+  }, []);
+
+  const onTabsMouseMove = useCallback((e) => {
+    if (!dragState.current.isDown) return;
+    e.preventDefault();
+    const x = e.pageX - tabsRef.current.offsetLeft;
+    const walk = (x - dragState.current.startX) * 1.5;
+    if (Math.abs(walk) > 4) dragState.current.moved = true;
+    tabsRef.current.scrollLeft = dragState.current.scrollLeft - walk;
+  }, []);
 
   useEffect(() => {
     fetch('/api/get_projects', { cache: 'no-store' }) // Corrected API endpoint
@@ -79,15 +107,25 @@ const Projects = ({ currentLanguage }) => {
           </p>
         </div>
 
-        {/* Sliding Category Filter Tabs */}
+        {/* Sliding Category Filter Tabs — drag-scrollable on desktop */}
         {!loading && projects.length > 0 && (
           <div className="filter-tabs-container">
-            <div className="filter-tabs">
+            <div
+              className="filter-tabs"
+              ref={tabsRef}
+              onMouseDown={onTabsMouseDown}
+              onMouseLeave={onTabsMouseLeave}
+              onMouseUp={onTabsMouseUp}
+              onMouseMove={onTabsMouseMove}
+            >
               {categories.map(cat => (
                 <button
                   key={cat}
                   className={`filter-tab ${activeCategory === cat ? 'active' : ''}`}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => {
+                    // Don't fire click if the user was dragging
+                    if (!dragState.current.moved) setActiveCategory(cat);
+                  }}
                 >
                   {cat === 'All' ? (currentLanguage === 'en' ? 'All' : 'الكل') : cat}
                 </button>
