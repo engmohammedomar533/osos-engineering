@@ -1992,188 +1992,110 @@ select.form-control {
     visibility: hidden;
 }
 
-/* 3D Model Animation - Fractal Unfolding */
-.engineering-animation {
+/* =============================================
+   Blueprint Line-Drawing Loading Animation
+   ============================================= */
+
+.blueprint-animation {
     position: relative;
-    width: 320px;
+    width: 340px;
     height: 240px;
-    margin-bottom: 2rem;
-    perspective: 1500px;
-}
-
-.blueprint-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(27, 54, 92, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(27, 54, 92, 0.1) 1px, transparent 1px);
-    background-size: 10px 10px;
-}
-
-.model-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.model {
-    width: 100px;
-    height: 100px;
-    position: relative;
-    transform-style: preserve-3d;
-    animation: unfold-model 19s infinite ease-in-out;
-}
-
-.face {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background: rgba(27, 54, 92, 0.5);
-    border: 1px solid var(--color-primary);
-    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
-    animation: face-animation 4.3s ease-in-out;
-}
-
-.front  { transform: translateZ(50px); animation-name: front-face; }
-.back   { transform: rotateY(180deg) translateZ(50px); animation-name: back-face; }
-.right  { transform: rotateY(90deg) translateZ(50px); animation-name: right-face; }
-.left   { transform: rotateY(-90deg) translateZ(50px); animation-name: left-face; }
-.top    { transform: rotateX(90deg) translateZ(50px); animation-name: top-face; }
-.bottom { transform: rotateX(-90deg) translateZ(50px); animation-name: bottom-face; }
-
-.fractal-cube-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    animation: rotate-fractal 19s infinite linear;
-}
-
-.fractal-cube {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    transform-style: preserve-3d;
-}
-
-.fractal-cube .face {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 215, 0, 0.7);
-    border: 1px solid #FFD700;
-}
-
-.fractal-cube .front  { transform: translateZ(20px); }
-.fractal-cube .back   { transform: rotateY(180deg) translateZ(20px); }
-.fractal-cube .right  { transform: rotateY(90deg) translateZ(20px); }
-.fractal-cube .left   { transform: rotateY(-90deg) translateZ(20px); }
-.fractal-cube .top    { transform: rotateX(90deg) translateZ(20px); }
-.fractal-cube .bottom { transform: rotateX(-90deg) translateZ(20px); }
-
-
-.annotations {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-}
-
-.annotation {
-    position: absolute;
-    background: rgba(255,255,255,0.98);
-    color: #0A192F;
-    padding: 5px 12px;
+    margin-bottom: 2.5rem;
     border-radius: 6px;
-    font-size: 10px;
-    font-weight: 700;
-    opacity: 0;
-    animation: show-annotation-fractal 19s infinite;
+    overflow: visible;
 }
 
-.a1 { top: 5%; left: 5%; animation-delay: 2s; }
-.a2 { top: 85%; left: 75%; animation-delay: 6s; }
-.a3 { top: 45%; left: 10%; animation-delay: 9s; }
-.a4 { top: 65%; left: 85%; animation-delay: 12s; }
-.a5 { top: 20%; left: 60%; animation-delay: 14s; }
-
-.particle-system {
+/* Corner frame brackets — top-left, top-right, bottom-left, bottom-right */
+.bp-corner {
     position: absolute;
-    width: 200%;
-    height: 200%;
-    left: -50%;
-    top: -50%;
-    background-image: radial-gradient(var(--color-secondary) 0.5px, transparent 0.5px);
-    background-size: 5px 5px;
-    animation: particle-zoom 19s infinite linear;
+    width: 18px;
+    height: 18px;
+    border-color: var(--color-primary, #bda054);
+    border-style: solid;
+    opacity: 0;
+    animation: bp-corner-appear 0.4s ease-out 0.2s forwards;
+}
+.bp-corner--tl { top: -4px;  left: -4px;  border-width: 2px 0 0 2px; }
+.bp-corner--tr { top: -4px;  right: -4px; border-width: 2px 2px 0 0; }
+.bp-corner--bl { bottom: -4px; left: -4px;  border-width: 0 0 2px 2px; }
+.bp-corner--br { bottom: -4px; right: -4px; border-width: 0 2px 2px 0; }
+
+@keyframes bp-corner-appear {
+    to { opacity: 0.8; }
 }
 
-@keyframes unfold-model {
-    0%, 100% { transform: rotateY(0deg) rotateX(20deg); }
-    20% { transform: rotateY(45deg) rotateX(20deg) scale3d(1.5, 1.5, 1.5); }
-    40% { transform: rotateY(-45deg) rotateX(-20deg) scale3d(1, 1, 1); }
-    60% { transform: rotateY(180deg) rotateX(0deg) scale3d(1.2, 1.2, 1.2); }
-    80% { transform: rotateY(360deg) rotateX(20deg) scale3d(1, 1, 1); }
+/* The SVG canvas */
+.blueprint-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
-@keyframes rotate-fractal {
-    0% { transform: rotateY(0deg) rotateX(0deg); }
-    100% { transform: rotateY(360deg) rotateX(-360deg); }
+/* ---- All structural lines share base style ---- */
+.bp-line {
+    fill: none;
+    stroke: #63b3ed;        /* Blueprint cyan-blue */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
 }
 
-@keyframes show-annotation-fractal {
-    0%, 100% { opacity: 0; transform: scale(0.8); }
-    15%, 35% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0; transform: scale(0.8); }
+/* Draw each structural element in sequence */
+.bp-ground  { stroke-width: 1.5; animation: bp-draw 0.5s ease-out 0.3s forwards; }
+.bp-outline { stroke-width: 1.8; animation: bp-draw 0.7s ease-out 0.7s forwards; }
+.bp-roof    { stroke-width: 1.8; animation: bp-draw 0.5s ease-out 1.3s forwards; }
+.bp-floor1  { stroke-width: 1.2; animation: bp-draw 0.35s ease-out 1.7s forwards; }
+.bp-floor2  { stroke-width: 1.2; animation: bp-draw 0.35s ease-out 2.0s forwards; }
+.bp-col1    { stroke-width: 1.2; animation: bp-draw 0.3s ease-out 2.3s forwards; }
+.bp-col2    { stroke-width: 1.2; animation: bp-draw 0.3s ease-out 2.5s forwards; }
+.bp-door    { stroke-width: 1.4; stroke-dasharray: 300; stroke-dashoffset: 300;
+              animation: bp-draw 0.3s ease-out 2.7s forwards; }
+
+/* Windows — stagger each one */
+.bp-win     { stroke-width: 1.0; stroke-dasharray: 200; stroke-dashoffset: 200; }
+.bp-win1    { animation: bp-draw 0.25s ease-out 2.9s forwards; }
+.bp-win2    { animation: bp-draw 0.25s ease-out 3.05s forwards; }
+.bp-win3    { animation: bp-draw 0.25s ease-out 3.18s forwards; }
+.bp-win4    { animation: bp-draw 0.25s ease-out 3.30s forwards; }
+.bp-win5    { animation: bp-draw 0.25s ease-out 3.42s forwards; }
+.bp-win6    { animation: bp-draw 0.25s ease-out 3.54s forwards; }
+.bp-win7    { animation: bp-draw 0.25s ease-out 3.66s forwards; }
+.bp-win8    { animation: bp-draw 0.25s ease-out 3.78s forwards; }
+
+/* Dimension annotation lines + text — appear last */
+.bp-dim {
+    opacity: 0;
+    animation: bp-fade-in 0.4s ease-out 3.9s forwards;
+}
+.bp-dim line {
+    stroke: rgba(99,179,237,0.5);
+    stroke-width: 0.8;
+    fill: none;
+}
+.bp-dim-text {
+    fill: rgba(99,179,237,0.75);
+    font-size: 7px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.04em;
 }
 
-@keyframes particle-zoom {
-    0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
-    50% { transform: scale(2) rotate(180deg); opacity: 0; }
-    100% { transform: scale(1) rotate(360deg); opacity: 0.5; }
+/* Structural node dots at key intersections */
+.bp-node {
+    fill: none;
+    stroke: var(--color-primary, #bda054);
+    stroke-width: 1.2;
+    opacity: 0;
+    animation: bp-fade-in 0.3s ease-out 1.4s forwards;
 }
 
-@keyframes front-face {
-  0% { transform: translateZ(50px); }
-  25% { transform: translateZ(100px); }
-  50% { transform: translateZ(50px); }
-  100% { transform: translateZ(50px); }
+/* ---- Core animation keyframes ---- */
+@keyframes bp-draw {
+    to { stroke-dashoffset: 0; }
 }
 
-@keyframes back-face {
-  0% { transform: rotateY(180deg) translateZ(50px); }
-  25% { transform: rotateY(180deg) translateZ(100px); }
-  50% { transform: rotateY(180deg) translateZ(50px); }
-  100% { transform: rotateY(180deg) translateZ(50px); }
-}
-
-@keyframes right-face {
-  0% { transform: rotateY(90deg) translateZ(50px); }
-  25% { transform: rotateY(90deg) translateZ(100px); }
-  50% { transform: rotateY(90deg) translateZ(50px); }
-  100% { transform: rotateY(90deg) translateZ(50px); }
-}
-
-@keyframes left-face {
-  0% { transform: rotateY(-90deg) translateZ(50px); }
-  25% { transform: rotateY(-90deg) translateZ(100px); }
-  50% { transform: rotateY(-90deg) translateZ(50px); }
-  100% { transform: rotateY(-90deg) translateZ(50px); }
-}
-
-@keyframes top-face {
-  0% { transform: rotateX(90deg) translateZ(50px); }
-  25% { transform: rotateX(90deg) translateZ(100px); }
-  50% { transform: rotateX(90deg) translateZ(50px); }
-  100% { transform: rotateX(90deg) translateZ(50px); }
-}
-
-@keyframes bottom-face {
-  0% { transform: rotateX(-90deg) translateZ(50px); }
-  25% { transform: rotateX(-90deg) translateZ(100px); }
-  50% { transform: rotateX(-90deg) translateZ(50px); }
+@keyframes bp-fade-in {
+    to { opacity: 1; }
 }
 
 @media (max-width: 768px) {

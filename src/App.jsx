@@ -281,37 +281,81 @@ const LoadingScreen = ({ currentLanguage }) => {
 
   return (
     <div className={`loading-screen ${!isLoading ? 'hidden' : ''}`}>
-      <div className="engineering-animation">
-        <div className="blueprint-bg"></div>
-        <div className="model-container">
-          <div className="model">
-            <div className="face front"></div>
-            <div className="face back"></div>
-            <div className="face right"></div>
-            <div className="face left"></div>
-            <div className="face top"></div>
-            <div className="face bottom"></div>
-            <div className="fractal-cube-container">
-              <div className="fractal-cube">
-                <div className="face front"></div>
-                <div className="face back"></div>
-                <div className="face right"></div>
-                <div className="face left"></div>
-                <div className="face top"></div>
-                <div className="face bottom"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="annotations">
-          <div className="annotation a1"><span>X: 75mm</span></div>
-          <div className="annotation a2"><span>Y: 75mm</span></div>
-          <div className="annotation a3"><span>Z: 75mm</span></div>
-          <div className="annotation a4"><span>Material: Steel</span></div>
-          <div className="annotation a5"><span>Stress: 250MPa</span></div>
-        </div>
-        <div className="particle-system"></div>
+      <div className="blueprint-animation">
+        {/* Blueprint corner frame brackets */}
+        <div className="bp-corner bp-corner--tl"></div>
+        <div className="bp-corner bp-corner--tr"></div>
+        <div className="bp-corner bp-corner--bl"></div>
+        <div className="bp-corner bp-corner--br"></div>
+
+        <svg viewBox="0 0 320 225" xmlns="http://www.w3.org/2000/svg" className="blueprint-svg" aria-hidden="true">
+          {/* Grid background pattern */}
+          <defs>
+            <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+              <path d="M 16 0 L 0 0 0 16" fill="none" stroke="rgba(99,179,237,0.12)" strokeWidth="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="320" height="225" fill="url(#grid)" />
+
+          {/* 1 — Ground line */}
+          <line className="bp-line bp-ground" x1="15" y1="192" x2="305" y2="192" />
+
+          {/* 2 — Building main outline */}
+          <polyline className="bp-line bp-outline" points="55,192 55,40 265,40 265,192" />
+
+          {/* 3 — Roof pediment */}
+          <polyline className="bp-line bp-roof" points="42,40 160,8 278,40" />
+
+          {/* 4 — Floor slab 1 */}
+          <line className="bp-line bp-floor1" x1="55" y1="138" x2="265" y2="138" />
+
+          {/* 5 — Floor slab 2 */}
+          <line className="bp-line bp-floor2" x1="55" y1="92" x2="265" y2="92" />
+
+          {/* 6 — Structural columns */}
+          <line className="bp-line bp-col1" x1="120" y1="192" x2="120" y2="40" />
+          <line className="bp-line bp-col2" x1="200" y1="192" x2="200" y2="40" />
+
+          {/* 7 — Entry door */}
+          <polyline className="bp-line bp-door" points="143,192 143,158 177,158 177,192" />
+
+          {/* 8 — Ground floor windows */}
+          <rect className="bp-line bp-win bp-win1" x="63"  y="152" width="38" height="26" />
+          <rect className="bp-line bp-win bp-win2" x="209" y="152" width="38" height="26" />
+
+          {/* 9 — First floor windows */}
+          <rect className="bp-line bp-win bp-win3" x="63"  y="102" width="38" height="24" />
+          <rect className="bp-line bp-win bp-win4" x="132" y="102" width="38" height="24" />
+          <rect className="bp-line bp-win bp-win5" x="209" y="102" width="38" height="24" />
+
+          {/* 10 — Second floor windows */}
+          <rect className="bp-line bp-win bp-win6" x="63"  y="52" width="38" height="24" />
+          <rect className="bp-line bp-win bp-win7" x="132" y="52" width="38" height="24" />
+          <rect className="bp-line bp-win bp-win8" x="209" y="52" width="38" height="24" />
+
+          {/* 11 — Dimension: height */}
+          <g className="bp-dim">
+            <line x1="22" y1="40"  x2="22" y2="192" />
+            <line x1="16" y1="40"  x2="28" y2="40" />
+            <line x1="16" y1="192" x2="28" y2="192" />
+            <text className="bp-dim-text" x="6" y="120" transform="rotate(-90,6,120)">H: 45.0m</text>
+          </g>
+
+          {/* 12 — Dimension: width */}
+          <g className="bp-dim">
+            <line x1="55"  y1="208" x2="265" y2="208" />
+            <line x1="55"  y1="202" x2="55"  y2="214" />
+            <line x1="265" y1="202" x2="265" y2="214" />
+            <text className="bp-dim-text" x="160" y="221" textAnchor="middle">W: 32.0m</text>
+          </g>
+
+          {/* Apex and corner node markers */}
+          <circle className="bp-node" cx="160" cy="8"  r="3" />
+          <circle className="bp-node" cx="55"  cy="40" r="3" />
+          <circle className="bp-node" cx="265" cy="40" r="3" />
+        </svg>
       </div>
+
       <div className="loading-text">
         <span className="loading-title" data-en="Building Excellence" data-ar="نبني التميز">
           {currentLanguage === 'en' ? 'Building Excellence' : 'نبني التميز'}
