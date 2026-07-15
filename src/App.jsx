@@ -173,7 +173,7 @@ const Home = ({ currentLanguage }) => {
             <LogoLoop 
               logos={logos} 
               speed={75} 
-              logoHeight={110} 
+              logoHeight={132} 
               gap={40} 
               pauseOnHover={true} 
               fadeOut={false} 
