@@ -1,0 +1,52 @@
+/* ══════════════════════════════════════════════
+   Floating Home Button — Styles
+   ══════════════════════════════════════════════ */
+
+.floating-home {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+/* Swap sides for RTL (Arabic) */
+html[dir="rtl"] .floating-home {
+  left: auto;
+  right: 20px;
+}
+
+.floating-home-button {
+  background-color: var(--color-primary, #bda054);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-home-button:hover {
+  background-color: var(--color-secondary, #a88d44);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+}
+
+.floating-home-button:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.home-svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Also shift Back-to-Top button to left side in RTL so they don't overlap! */
+html[dir="rtl"] .back-to-top {
+  right: auto;
+  left: 20px;
+}

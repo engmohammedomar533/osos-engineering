@@ -8,6 +8,7 @@ import './index.css'; // Import the main CSS file
 import FloatingIcons from './FloatingIcons';
 import ScrollToTop from './ScrollToTop';
 import BackToTopButton from './BackToTopButton';
+import FloatingHomeButton from './FloatingHomeButton';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -605,6 +606,7 @@ function App() {
       <FloatingIcons />
       <div className="floating-elements"></div>
       <BackToTopButton />
+      <FloatingHomeButton currentLanguage={currentLanguage} />
       <Suspense fallback={<div />}>
         <Routes>
           <Route path="/" element={<PageWrapper><Home currentLanguage={currentLanguage} /></PageWrapper>} />
