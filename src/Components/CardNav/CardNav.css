@@ -1,311 +1,570 @@
-/*
-	Installed from https://reactbits.dev/default/
-*/
+/* ══════════════════════════════════════════════
+   Engineering Navigation Bar — Upgrade Custom Styles
+   ══════════════════════════════════════════════ */
 
-.card-nav-container {
-  position: absolute;
+:root {
+  --nav-height: 72px;
+  --ticker-height: 28px;
+}
+
+.osos-nav-wrapper {
+  position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 1280px;
-  z-index: 99;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  font-family: var(--font-family-base);
   box-sizing: border-box;
 }
 
-.card-nav {
-  display: block;
-  height: 60px;
-  padding: 0;
-  background-color: white;
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
+/* ── Top Engineering Ticker Bar ── */
+.osos-ticker-bar {
+  height: var(--ticker-height);
+  background: var(--color-primary, #134252);
+  border-bottom: 1.5px solid var(--color-secondary, #bda054);
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  will-change: height;
+  position: relative;
+  z-index: 10;
 }
 
-.card-nav-top {
+.osos-ticker-bar::after {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+
+.osos-ticker-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.osos-ticker-text span {
+  padding-right: 3rem;
+}
+
+/* ── Main Navigation Bar ── */
+.osos-nav-header {
+  height: var(--nav-height);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .osos-nav-header {
+  background: rgba(10, 25, 47, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.osos-nav-container {
+  max-width: 1240px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.45rem 0.55rem 1.1rem;
+  box-sizing: border-box;
+}
+
+/* Logo Section */
+.osos-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.osos-logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.osos-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.osos-logo-text .logo-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-primary, #134252);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+[data-theme="dark"] .osos-logo-text .logo-title {
+  color: #fff;
+}
+
+.osos-logo-text .logo-subtitle {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--color-secondary, #bda054);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Desktop Links */
+.osos-desktop-menu {
+  display: flex;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.osos-nav-item-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.osos-nav-trigger {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text, #333);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+[data-theme="dark"] .osos-nav-trigger {
+  color: #ccd6f6;
+}
+
+.osos-nav-trigger:hover,
+.osos-nav-trigger.active {
+  color: var(--color-primary, #134252);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .osos-nav-trigger:hover,
+[data-theme="dark"] .osos-nav-trigger.active {
+  color: var(--color-secondary, #bda054);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.osos-nav-chevron {
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
+  transition: transform 0.25s ease;
+}
+
+.osos-nav-trigger:hover .osos-nav-chevron,
+.osos-nav-trigger.active .osos-nav-chevron {
+  transform: rotate(180deg);
+}
+
+/* Desktop Dropdown Panel with Blueprint-Style Aesthetics */
+.osos-nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  width: 250px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 3.5px solid var(--color-secondary, #bda054);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  padding: 0.75rem;
+}
+
+[data-theme="dark"] .osos-nav-dropdown {
+  background: rgba(10, 25, 47, 0.96);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.osos-nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(19, 66, 82, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 66, 82, 0.03) 1px, transparent 1px);
+  background-size: 10px 10px;
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+.osos-nav-item-group:hover .osos-nav-dropdown,
+.osos-nav-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.osos-dropdown-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  position: relative;
   z-index: 2;
 }
 
-.hamburger-menu {
-  height: 100%;
+.osos-dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-text-secondary, #555);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .osos-dropdown-link {
+  color: #8892b0;
+}
+
+.osos-dropdown-link:hover,
+.osos-dropdown-link.active {
+  background: color-mix(in srgb, var(--color-primary, #134252) 7%, transparent);
+  color: var(--color-primary, #134252);
+}
+
+[data-theme="dark"] .osos-dropdown-link:hover,
+[data-theme="dark"] .osos-dropdown-link.active {
+  background: color-mix(in srgb, var(--color-secondary, #bda054) 8%, transparent);
+  color: var(--color-secondary, #bda054);
+}
+
+.link-bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.3;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.osos-dropdown-link:hover .link-bullet,
+.osos-dropdown-link.active .link-bullet {
+  opacity: 1;
+  transform: scale(1.4);
+}
+
+/* Action Area & Language Switcher */
+.osos-action-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lang-switch {
+  background: none;
+  border: 1px solid var(--color-primary, #134252);
+  padding: 0.4rem 0.85rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+[data-theme="dark"] .lang-switch {
+  border-color: var(--color-secondary, #bda054);
+}
+
+.lang-switch:hover {
+  background: var(--color-primary, #134252);
+  color: #fff;
+}
+
+[data-theme="dark"] .lang-switch:hover {
+  background: var(--color-secondary, #bda054);
+  color: #0a192f;
+}
+
+.lang-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: inherit;
+}
+
+/* ── Mobile Hamburger Icon ── */
+.osos-hamburger {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  gap: 6px;
-}
-
-.hamburger-menu:hover .hamburger-line {
-  opacity: 0.75;
-}
-
-.hamburger-line {
-  width: 30px;
-  height: 2px;
-  background-color: currentColor;
-  transition:
-    transform 0.25s ease,
-    opacity 0.2s ease,
-    margin 0.3s ease;
-  transform-origin: 50% 50%;
-}
-
-.hamburger-menu.open .hamburger-line:first-child {
-  transform: translateY(4px) rotate(45deg);
-}
-
-.hamburger-menu.open .hamburger-line:last-child {
-  transform: translateY(-4px) rotate(-45deg);
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  margin: auto;
-}
-
-.logo {
-  height: 28px;
-}
-
-.scroll-velocity-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1; /* Allows it to take available space */
-  height: 100%;
-  text-align: center;
-}
-
-.navbar-scroll-velocity {
-  font-weight: bold;
-  color: #1B365C; /* Example color, adjust to match design */
-  white-space: nowrap; /* Keep text on a single line for animation */
-
-  /* Override ScrollVelocity internal styles */
-  .scroller {
-    font-size: 10px !important; /* Adjust as needed for overall size */
-    line-height: 1em !important; /* Ensure lines are close but don't overlap */
-    font-family: var(--font-family-base); /* Apply website font */
-  }
-
-  .scroller span {
-    font-size: 1em !important; /* Relative to .scroller font-size */
-    line-height: 1em !important; /* Ensure lines are close but don't overlap */
-  }
-}
-
-
-
-
-.card-nav-cta-button {
-  background-color: #111;
-  color: white;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
+  background: none;
   border: none;
-  border-radius: calc(0.75rem - 0.35rem);
-  padding: 0 1rem;
-  height: 100%;
-  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 0;
+  z-index: 1000;
 }
 
-.card-nav-cta-button:hover {
-  background-color: #333;
+.osos-hamburger span {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary, #134252);
+  border-radius: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: left center;
 }
 
-.card-nav-content {
-  position: absolute;
+[data-theme="dark"] .osos-hamburger span {
+  background-color: #fff;
+}
+
+.osos-hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(2px, 0px);
+}
+
+.osos-hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.osos-hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(2px, 0px);
+}
+
+/* ── Mobile Drawer overlay backdrop ── */
+.osos-mobile-backdrop {
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  top: 60px;
   bottom: 0;
-  padding: 0.5rem;
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
+  background: rgba(10, 25, 47, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 998;
+  opacity: 0;
   visibility: hidden;
-  pointer-events: none;
-  z-index: 1;
+  transition: all 0.35s ease;
 }
 
-.card-nav.open .card-nav-content {
+.osos-mobile-backdrop.show {
+  opacity: 1;
   visibility: visible;
-  pointer-events: auto;
 }
 
-.nav-card {
+/* ── Mobile Sidebar Drawer panel ── */
+.osos-mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
   height: 100%;
-  flex: 1 1 0;
-  min-width: 0;
-  border-radius: calc(0.75rem - 0.2rem);
-  position: relative;
+  background: #fff;
+  z-index: 999;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
-  padding: 12px 16px;
-  gap: 8px;
-  user-select: none;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
 }
 
-.nav-card-label {
-  font-weight: 400;
-  font-size: 22px;
-  letter-spacing: -0.5px;
+[data-theme="dark"] .osos-mobile-drawer {
+  background: #0d1e36;
 }
 
-.nav-card-links {
+.osos-mobile-drawer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(19, 66, 82, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 66, 82, 0.04) 1px, transparent 1px);
+  background-size: 14px 14px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.osos-mobile-drawer.open {
+  transform: translateX(-320px);
+}
+
+/* Reverse slide for Arabic RTL */
+html[dir="rtl"] .osos-mobile-drawer {
+  right: auto;
+  left: -320px;
+  box-shadow: 10px 0 40px rgba(0,0,0,0.15);
+}
+
+html[dir="rtl"] .osos-mobile-drawer.open {
+  transform: translateX(320px);
+}
+
+.osos-drawer-header {
+  padding: 1.5rem;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.card-nav-content .nav-card:first-child .nav-card-links {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, auto);
-  grid-auto-flow: column;
-  gap: 2px 16px;
-}
-
-.nav-card-link {
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: opacity 0.3s ease;
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  position: relative;
+  z-index: 2;
 }
 
-.nav-card-link:hover {
-  opacity: 0.75;
+[data-theme="dark"] .osos-drawer-header {
+  border-bottom-color: rgba(255,255,255,0.06);
 }
 
-@media (max-width: 768px) {
-  .card-nav-container {
-    width: 90%;
-    top: 1.2em;
-  }
-
-  .card-nav-top {
-    padding: 0.5rem 1rem;
-    justify-content: space-between;
-  }
-
-  
-
-  .card-nav-cta-button {
-    display: none;
-  }
-
-  /* Default LTR (English) order */
-  html[dir="ltr"] .hamburger-menu {
-    order: 1; /* Dropdown on the left */
-  }
-
-  html[dir="ltr"] .logo-container {
-    order: 2; /* Logo in the middle */
-  }
-
-  html[dir="ltr"] .lang-switch {
-    order: 3; /* Language button on the right */
-  }
-
-  /* RTL (Arabic) order */
-  html[dir="rtl"] .hamburger-menu {
-    order: 3; /* Dropdown on the right */
-  }
-
-  html[dir="rtl"] .logo-container {
-    order: 2; /* Logo in the middle */
-  }
-
-  html[dir="rtl"] .lang-switch {
-    order: 1; /* Language button on the left */
-  }
-
-  .scroll-velocity-container {
-    order: 2; /* Ensure it's in the middle for both LTR and RTL */
-    flex-grow: 1;
-    text-align: center;
-    max-width: 64%; /* Reduce size by 20% */
-  }
-
-  .navbar-scroll-velocity .parallax {
-    max-width: 80%; /* Reduce size by 20% */
-    margin: 0 auto; /* Center the parallax container */
-  }
-
-  .navbar-scroll-velocity .scroller {
-    font-size: 10px !important; /* Smaller font size for mobile */
-    line-height: 1em !important;
-    overflow: hidden !important;
-  }
-
-  
-
-  .card-nav-content {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    padding: 0.5rem;
-    bottom: 0;
-    justify-content: flex-start;
-  }
-
-  .nav-card {
-    height: auto;
-    min-height: 60px;
-    flex: 1 1 auto;
-    max-height: none;
-  }
-
-  .nav-card-label {
-    font-size: 18px;
-  }
-
-  .nav-card-link {
-    font-size: 15px;
-  }
+.osos-drawer-logo {
+  height: 32px;
+  width: auto;
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .navbar-scroll-velocity .scroller {
-    font-size: 14px !important; /* Adjust as needed */
-    line-height: 1em !important;
-  }
+.osos-drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--color-text-secondary, #666);
 }
 
-@media (min-width: 1025px) and (max-width: 1440px) {
-  .navbar-scroll-velocity .scroller {
-    font-size: 20px !important; /* Adjust as needed */
-    line-height: 1em !important;
-  }
+.osos-drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  position: relative;
+  z-index: 2;
 }
 
-@media (min-width: 1441px) {
-  .navbar-scroll-velocity .scroller {
-    font-size: 20px !important; /* Adjust as needed */
-    line-height: 1em !important;
-  }
+.osos-drawer-group {
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  padding-bottom: 0.6rem;
 }
 
-@media (min-width: 769px) {
-  .scroll-velocity-container {
-    display: none;
-  }
+[data-theme="dark"] .osos-drawer-group {
+  border-bottom-color: rgba(255,255,255,0.03);
+}
+
+.osos-drawer-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary, #134252);
+  padding: 0.5rem 0;
+  cursor: pointer;
+  text-align: inherit;
+  font-family: inherit;
+}
+
+[data-theme="dark"] .osos-drawer-trigger {
+  color: var(--color-secondary, #bda054);
+}
+
+.osos-drawer-trigger svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s ease;
+}
+
+.osos-drawer-trigger.expanded svg {
+  transform: rotate(180deg);
+}
+
+.osos-drawer-links {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0.5rem 0.2rem;
+}
+
+.osos-drawer-links.show {
+  display: flex;
+}
+
+.osos-drawer-link {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary, #555);
+  text-decoration: none;
+  padding: 0.4rem 0;
+  transition: color 0.2s ease;
+  display: block;
+}
+
+[data-theme="dark"] .osos-drawer-link {
+  color: #ccd6f6;
+}
+
+.osos-drawer-link.active,
+.osos-drawer-link:hover {
+  color: var(--color-primary, #134252);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .osos-drawer-link.active,
+[data-theme="dark"] .osos-drawer-link:hover {
+  color: var(--color-secondary, #bda054);
+}
+
+.osos-drawer-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  position: relative;
+  z-index: 2;
+}
+
+.osos-drawer-tagline {
+  font-size: 0.72rem;
+  color: var(--color-text-secondary, #999);
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Adjust general body offset for fixed nav */
+body {
+  padding-top: calc(var(--nav-height) + var(--ticker-height)) !important;
+}
+
+/* Adjust projects top spacing to prevent navbar overlap */
+.projects-filter-bar {
+  top: calc(var(--nav-height) + var(--ticker-height) - 1px) !important;
 }
