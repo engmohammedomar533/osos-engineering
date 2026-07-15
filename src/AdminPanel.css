@@ -303,3 +303,41 @@
 .uploader-actions button {
   min-width: 100px;
 }
+
+/* Admin Header / Sign Out Button */
+.admin-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.admin-header-row h2 {
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+.btn-signout {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.2);
+}
+
+.btn-signout:hover {
+  background-color: #c82333;
+}
+
+.btn-signout:active {
+  transform: scale(0.97);
+}

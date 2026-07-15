@@ -312,9 +312,21 @@ const AdminPanel = ({ onLogout }) => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    if (onLogout) {
+      onLogout();
+    }
+  };
+
   return (
     <div className="admin-panel-container">
-      <h2>Admin Panel</h2>
+      <div className="admin-header-row">
+        <h2>Admin Panel</h2>
+        <button onClick={handleLogout} className="btn-signout">
+          Sign Out
+        </button>
+      </div>
       {message.text && <div className={`admin-message ${message.type}`}>{message.text}</div>}
 
       <div className="admin-tabs">
