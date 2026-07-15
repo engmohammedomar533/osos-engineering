@@ -447,8 +447,8 @@ def get_news_feed(lang: str = "en"):
                 title_clean = title.strip()
                 desc_clean = clean_html(desc)[:200] + "..." if desc else ""
                 
-                # Dynamic link pointing to the municipality news page
-                link = f"https://hmm.gov.sa/news"
+                # Dynamic link pointing to the exact municipality news article detail page
+                link = f"https://hmm.gov.sa/news-details?id={news_id}"
                 
                 articles.append({
                     "title": title_clean,
