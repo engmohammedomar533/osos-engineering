@@ -395,6 +395,19 @@ def clean_html(text):
     cleaned = re.sub(clean, '', text)
     return cleaned.strip()
 
+def parse_hmm_date(date_str):
+    try:
+        parts = date_str.split('-')
+        if len(parts) == 3:
+            year = int(parts[0])
+            month = int(parts[1])
+            day = int(parts[2])
+            dt = datetime(year, month, day)
+            return dt.isoformat()
+    except Exception:
+        pass
+    return date_str
+
 @app.get("/api/get_news_feed")
 def get_news_feed(lang: str = "en"):
     if lang == "ar":
@@ -403,20 +416,53 @@ def get_news_feed(lang: str = "en"):
             {"source": "أرقام العقارية", "url": "https://www.argaam.com/ar/rss/categoryrss/categoryid/143"},
             {"source": "جريدة الرياض - العقار", "url": "https://www.alriyadh.com/section.realestate.xml"}
         ]
-        # Makkah keywords to prioritize and flag
         makkah_keywords = ["مكة", "المقدسة", "الحرم", "المشاعر", "جبل عمر", "مسار", "وجهة مسار", "الرصيفة", "الكعبة"]
     else:
         feeds = [
             {"source": "ENR (Engineering News)", "url": "https://www.enr.com/rss/articles"},
             {"source": "ArchDaily (Architecture)", "url": "https://www.archdaily.com/feed"}
         ]
-        # Makkah keywords in English
         makkah_keywords = ["makkah", "mecca", "holy mosque", "haram", "jabal omar", "masar", "rusaifa", "holy sites"]
 
     articles = []
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
+
+    # Fetch from Holy Makkah Municipality API
+    try:
+        hmm_url = "https://hmm.gov.sa/hmm_mgr/api/new_portal/api/News.php"
+        hmm_res = requests.get(hmm_url, headers=headers, timeout=6)
+        if hmm_res.status_code == 200:
+            hmm_data = hmm_res.json()
+            # The articles list is under the 'data' key
+            items = hmm_data.get("data", [])
+            for item in items:
+                title = item.get("title", "")
+                desc = item.get("description", "")
+                img_url = item.get("img", "")
+                date_str = item.get("date", "")
+                news_id = item.get("id", "")
+                
+                title_clean = title.strip()
+                desc_clean = clean_html(desc)[:200] + "..." if desc else ""
+                
+                # Dynamic link pointing to the municipality news page
+                link = f"https://hmm.gov.sa/news"
+                
+                articles.append({
+                    "title": title_clean,
+                    "link": link,
+                    "pubDate": parse_hmm_date(date_str),
+                    "pubDateRaw": date_str,
+                    "description": desc_clean,
+                    "source": "أمانة العاصمة المقدسة" if lang == "ar" else "Holy Makkah Municipality",
+                    "imageUrl": img_url,
+                    "isMakkah": True  # Always True since it's the Makkah Municipality
+                })
+    except Exception as e:
+        # Silently fail HMM API and proceed to RSS feeds
+        pass
 
     for feed in feeds:
         try:
@@ -456,7 +502,6 @@ def get_news_feed(lang: str = "en"):
                 title_clean = title.strip()
                 desc_clean = clean_html(desc_raw)[:200] + "..." if desc_raw else ""
                 
-                # Check if it mentions Makkah keywords in title or description
                 is_makkah = any(kw in title_clean.lower() or kw in desc_clean.lower() for kw in makkah_keywords)
 
                 articles.append({
@@ -470,13 +515,12 @@ def get_news_feed(lang: str = "en"):
                     "isMakkah": is_makkah
                 })
         except Exception as e:
-            # print(f"Error parsing feed {feed['source']}: {e}")
             continue
 
-    # Sort: Prioritize Makkah news, then sort by publish date
     try:
         articles.sort(key=lambda x: (not x["isMakkah"], x["pubDate"]), reverse=True)
     except Exception:
+
         # Fallback to date sort only if compound key fails
         try:
             articles.sort(key=lambda x: x["pubDate"], reverse=True)
