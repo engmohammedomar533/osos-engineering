@@ -144,8 +144,8 @@ const departments = [
       { nameEn: 'Mohamed Gamal',    nameAr: 'محمد جمال',       titleEn: 'Architect',              titleAr: 'مهندس معماري' },
       { nameEn: 'Mohamed Kadry',    nameAr: 'محمد قدري',      titleEn: 'Architect',              titleAr: 'مهندس معماري' },
       { nameEn: 'Doaa Soliman',     nameAr: 'دعاء سليمان',     titleEn: 'Interior Designer',      titleAr: 'مصممة ديكور' },
-      { nameEn: 'Tarek Hamdy',      nameAr: 'طارق حمدي',       titleEn: 'Engineer',               titleAr: 'مهندس' },
-      { nameEn: 'Israa El-Sawaf',   nameAr: 'إسراء الصواف',    titleEn: 'Engineer',               titleAr: 'مهندسة' },
+      { nameEn: 'Tarek Hamdy',      nameAr: 'طارق حمدي',       titleEn: 'Electrical Engineer',      titleAr: 'مهندس كهرباء' },
+      { nameEn: 'Israa El-Sawaf',   nameAr: 'إسراء الصواف',    titleEn: 'Electrical Engineer',      titleAr: 'مهندسة كهرباء' },
     ],
   },
 ];
