@@ -28,6 +28,7 @@ const OrganizationalChart = React.lazy(() => import('./Components/Organizational
 const PartnersOfSuccess = React.lazy(() => import('./PartnersOfSuccess'));
 const Credentials = React.lazy(() => import('./Credentials'));
 const OurLocations = React.lazy(() => import('./OurLocations'));
+const ImportantSites = React.lazy(() => import('./ImportantSites'));
 
 
 const navItems = [
@@ -54,6 +55,7 @@ const navItems = [
       { label_en: "Organizational Structure", label_ar: "الهيكل الإداري", href: "/team", ariaLabel: "Go to Team page" },
       { label_en: "About Us", label_ar: "من نحن", href: "/about", ariaLabel: "Go to About Us page" },
       { label_en: "Our Locations", label_ar: "مواقعنا", href: "/our-locations", ariaLabel: "Go to Our Locations page" },
+      { label_en: "Important Sites", label_ar: "المواقع المهمة", href: "/important-sites", ariaLabel: "Go to Important Sites page" },
     ],
   },
 ];
@@ -609,6 +611,7 @@ function App() {
           <Route path="/partners-of-success" element={<PageWrapper><PartnersOfSuccess currentLanguage={currentLanguage} /></PageWrapper>} />
           <Route path="/credentials" element={<PageWrapper><Credentials currentLanguage={currentLanguage} /></PageWrapper>} />
           <Route path="/our-locations" element={<PageWrapper><OurLocations currentLanguage={currentLanguage} /></PageWrapper>} />
+          <Route path="/important-sites" element={<PageWrapper><ImportantSites currentLanguage={currentLanguage} /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login onLogin={handleLogin} /></PageWrapper>} />
           <Route
             path="/admin"
@@ -742,6 +745,9 @@ function App() {
                 </NavLink></li>
                 <li><NavLink to="/our-locations" className="footer-link" data-en="Our Locations" data-ar="مواقعنا">
                   {currentLanguage === 'en' ? 'Our Locations' : 'مواقعنا'}
+                </NavLink></li>
+                <li><NavLink to="/important-sites" className="footer-link" data-en="Important Sites" data-ar="المواقع المهمة">
+                  {currentLanguage === 'en' ? 'Important Sites' : 'المواقع المهمة'}
                 </NavLink></li>
               </ul>
             </div>
