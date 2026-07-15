@@ -30,10 +30,10 @@ const CardNav = ({
     setActiveDropdown(null);
   };
 
-  // Setup text for the ticker
+  // Setup text for the ticker with clear separation for the company name
   const tickerTexts = currentLanguage === 'en'
-    ? ['OSOS Engineering & Consulting  •  Architecture  •  GIS  •  Surveying  •  Planning']
-    : ['أسس البناء للاستشارات الهندسية  •  معماري  •  مساحة  •  نظم معلومات جغرافية  •  تخطيط'];
+    ? ['OSOS Engineering & Consulting   |   Architecture  •  GIS  •  Surveying  •  Planning']
+    : ['أسس البناء للاستشارات الهندسية   |   معماري  •  مساحة  •  نظم معلومات جغرافية  •  تخطيط'];
 
   return (
     <div className={`osos-nav-wrapper ${isMobile ? 'is-mobile' : ''}`}>
@@ -43,7 +43,7 @@ const CardNav = ({
           texts={tickerTexts}
           velocity={0.06}
           className="osos-ticker-text"
-          numCopies={2}
+          numCopies={4}
         />
       </div>
 
