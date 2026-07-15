@@ -414,9 +414,13 @@ function App() {
         setIsLoggedIn(false);
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('authToken');
-        alert(currentLanguage === 'en' 
-          ? 'Your session has expired. Please log in again.' 
-          : 'لقد انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.');
+        
+        // Only trigger the alert popup if the user is actively on the admin page
+        if (window.location.pathname === '/admin') {
+          alert(currentLanguage === 'en' 
+            ? 'Your session has expired. Please log in again.' 
+            : 'لقد انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.');
+        }
       }
     };
 
