@@ -374,7 +374,119 @@ app.include_router(about_us_router, prefix="/api")
 app.include_router(services_router, prefix="/api")
 app.include_router(contacts_router, prefix="/api")
 
+import requests
+import xml.etree.ElementTree as ET
+import email.utils
+from datetime import datetime
+import re
+
+def parse_rss_date(date_str):
+    try:
+        parsed = email.utils.parsedate_to_datetime(date_str)
+        return parsed.isoformat()
+    except Exception:
+        return date_str
+
+def clean_html(text):
+    if not text:
+        return ""
+    # Remove HTML tags and decodes
+    clean = re.compile('<.*?>')
+    cleaned = re.sub(clean, '', text)
+    return cleaned.strip()
+
+@app.get("/api/get_news_feed")
+def get_news_feed(lang: str = "en"):
+    if lang == "ar":
+        feeds = [
+            {"source": "صحيفة مكة", "url": "https://makkahnewspaper.com/rss"},
+            {"source": "أرقام العقارية", "url": "https://www.argaam.com/ar/rss/categoryrss/categoryid/143"},
+            {"source": "جريدة الرياض - العقار", "url": "https://www.alriyadh.com/section.realestate.xml"}
+        ]
+        # Makkah keywords to prioritize and flag
+        makkah_keywords = ["مكة", "المقدسة", "الحرم", "المشاعر", "جبل عمر", "مسار", "وجهة مسار", "الرصيفة", "الكعبة"]
+    else:
+        feeds = [
+            {"source": "ENR (Engineering News)", "url": "https://www.enr.com/rss/articles"},
+            {"source": "ArchDaily (Architecture)", "url": "https://www.archdaily.com/feed"}
+        ]
+        # Makkah keywords in English
+        makkah_keywords = ["makkah", "mecca", "holy mosque", "haram", "jabal omar", "masar", "rusaifa", "holy sites"]
+
+    articles = []
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+
+    for feed in feeds:
+        try:
+            res = requests.get(feed["url"], headers=headers, timeout=6)
+            if res.status_code != 200:
+                continue
+            
+            root = ET.fromstring(res.content)
+            items = root.findall(".//item")
+            for item in items[:15]:
+                title_node = item.find("title")
+                link_node = item.find("link")
+                pub_date_node = item.find("pubDate")
+                desc_node = item.find("description")
+                
+                title = title_node.text if title_node is not None and title_node.text else ""
+                link = link_node.text if link_node is not None and link_node.text else ""
+                pub_date_raw = pub_date_node.text if pub_date_node is not None and pub_date_node.text else ""
+                desc_raw = desc_node.text if desc_node is not None and desc_node.text else ""
+                
+                image_url = ""
+                enclosure = item.find("enclosure")
+                if enclosure is not None:
+                    image_url = enclosure.get("url", "")
+                
+                if not image_url:
+                    for child in item:
+                        if 'content' in child.tag and child.get("url"):
+                            image_url = child.get("url")
+                            break
+                            
+                if not image_url and desc_raw:
+                    img_match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', desc_raw)
+                    if img_match:
+                        image_url = img_match.group(1)
+
+                title_clean = title.strip()
+                desc_clean = clean_html(desc_raw)[:200] + "..." if desc_raw else ""
+                
+                # Check if it mentions Makkah keywords in title or description
+                is_makkah = any(kw in title_clean.lower() or kw in desc_clean.lower() for kw in makkah_keywords)
+
+                articles.append({
+                    "title": title_clean,
+                    "link": link.strip(),
+                    "pubDate": parse_rss_date(pub_date_raw),
+                    "pubDateRaw": pub_date_raw,
+                    "description": desc_clean,
+                    "source": feed["source"],
+                    "imageUrl": image_url,
+                    "isMakkah": is_makkah
+                })
+        except Exception as e:
+            # print(f"Error parsing feed {feed['source']}: {e}")
+            continue
+
+    # Sort: Prioritize Makkah news, then sort by publish date
+    try:
+        articles.sort(key=lambda x: (not x["isMakkah"], x["pubDate"]), reverse=True)
+    except Exception:
+        # Fallback to date sort only if compound key fails
+        try:
+            articles.sort(key=lambda x: x["pubDate"], reverse=True)
+        except Exception:
+            pass
+
+    return articles
+
 # Optional: Add a root endpoint for discovery
 @app.get("/api")
 def read_root():
     return {"message": "Welcome to the Osos API"}
+

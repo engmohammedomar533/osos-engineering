@@ -29,6 +29,7 @@ const PartnersOfSuccess = React.lazy(() => import('./PartnersOfSuccess'));
 const Credentials = React.lazy(() => import('./Credentials'));
 const OurLocations = React.lazy(() => import('./OurLocations'));
 const ImportantSites = React.lazy(() => import('./ImportantSites'));
+const NewsFeed = React.lazy(() => import('./NewsFeed'));
 
 
 const navItems = [
@@ -56,6 +57,7 @@ const navItems = [
       { label_en: "About Us", label_ar: "من نحن", href: "/about", ariaLabel: "Go to About Us page" },
       { label_en: "Our Locations", label_ar: "مواقعنا", href: "/our-locations", ariaLabel: "Go to Our Locations page" },
       { label_en: "Important Sites", label_ar: "المواقع المهمة", href: "/important-sites", ariaLabel: "Go to Important Sites page" },
+      { label_en: "News Feed", label_ar: "آخر الأخبار", href: "/news-feed", ariaLabel: "Go to News Feed page" },
     ],
   },
 ];
@@ -616,6 +618,7 @@ function App() {
           <Route path="/credentials" element={<PageWrapper><Credentials currentLanguage={currentLanguage} /></PageWrapper>} />
           <Route path="/our-locations" element={<PageWrapper><OurLocations currentLanguage={currentLanguage} /></PageWrapper>} />
           <Route path="/important-sites" element={<PageWrapper><ImportantSites currentLanguage={currentLanguage} /></PageWrapper>} />
+          <Route path="/news-feed" element={<PageWrapper><NewsFeed currentLanguage={currentLanguage} /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login onLogin={handleLogin} /></PageWrapper>} />
           <Route
             path="/admin"
@@ -752,6 +755,9 @@ function App() {
                 </NavLink></li>
                 <li><NavLink to="/important-sites" className="footer-link" data-en="Important Sites" data-ar="المواقع المهمة">
                   {currentLanguage === 'en' ? 'Important Sites' : 'المواقع المهمة'}
+                </NavLink></li>
+                <li><NavLink to="/news-feed" className="footer-link" data-en="News Feed" data-ar="آخر الأخبار">
+                  {currentLanguage === 'en' ? 'News Feed' : 'آخر الأخبار'}
                 </NavLink></li>
               </ul>
             </div>
