@@ -714,7 +714,7 @@ function App() {
                 <h4 data-en="Email" data-ar="البريد الإلكتروني">
                   {'📧 ' + (currentLanguage === 'en' ? 'Email' : 'البريد الإلكتروني')}
                 </h4>
-                <p>info@ososbnaa.com</p>
+                <p>info@ososalbnaa.com</p>
               </div>
             </div>
           </div>
@@ -781,7 +781,7 @@ function App() {
                 }}></p>
               </div>
               <div className="contact-info-item">
-                <p>📧 info@ososbnaa.com</p>
+                <p>📧 info@ososalbnaa.com</p>
               </div>
             </div>
             <div className="footer-column footer-social">
