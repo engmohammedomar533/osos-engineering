@@ -9,6 +9,7 @@ import './index.css'; // Import the main CSS file
 import FloatingIcons from './FloatingIcons';
 import ScrollToTop from './ScrollToTop';
 import BackToTopButton from './BackToTopButton';
+import HomeContactMap from './Components/HomeContact/HomeContactMap';
 import FloatingHomeButton from './FloatingHomeButton';
 import FloatingWhatsApp from './FloatingWhatsApp';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -693,43 +694,36 @@ function App() {
                 </button>
               </form>
             </div>
-            <div className="contact-info">
-              <div className="info-item">
-                <h4 data-en="Address" data-ar="العنوان">
-                  {'📍 ' + (currentLanguage === 'en' ? 'Address' : 'العنوان')}
-                </h4>
-                <p dangerouslySetInnerHTML={{ __html:
-                  currentLanguage === 'en'
-                    ? "Main headquarters: Makkah - Al-Rusaifa district - Abdullah Arif street - near the Haramain train station - next to the mobile market<br />Al-Ahsa branch: Hofuf - Al-Rawda district - Al-Khaleej street - Al-Tamimi building - third floor<br />Egypt branch: Cairo - Maadi district - 4 75th street with 12th street"
-                    : "المقر الرئيسي : مكة المكرمة - حي الرصيفة - ش عبدالله عريف - بالقرب من محطة قطار الحرمين - بجوار سوق الجوالات<br />فرع الإحساء : الهفوف - حي الروضة - ش الخليج - عمارة التميمي - الدور الثالث<br />فرع مصر : القاهرة – حي المعادي – 4 شارع 75 مع شارع 12"
-                }} />
+            <div className="contact-info home-contact-redesign">
+              <div className="contact-cards-vertical">
+                
+                <div className="modern-contact-card" style={currentLanguage === 'ar' ? { flexDirection: 'row-reverse' } : {}}>
+                  <div className="mcc-content" style={currentLanguage === 'ar' ? { textAlign: 'right' } : { textAlign: 'left' }}>
+                    <span className="mcc-title">{currentLanguage === 'en' ? 'Mobile' : 'جوال'}</span>
+                    <h3 className="mcc-value"><a href="tel:00966545181910" className="phone-number ltr-text">0545181910</a></h3>
+                  </div>
+                  <div className="mcc-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                      <path d="M17 1H7C5.9 1 5 1.9 5 3V21C5 22.1 5.9 23 7 23H17C18.1 23 19 22.1 19 21V3C19 1.9 18.1 1 17 1ZM17 19H7V5H17V19ZM12 21C11.4 21 11 20.6 11 20C11 19.4 11.4 19 12 19C12.6 19 13 19.4 13 20C13 20.6 12.6 21 12 21Z" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="modern-contact-card" style={currentLanguage === 'ar' ? { flexDirection: 'row-reverse' } : {}}>
+                  <div className="mcc-content" style={currentLanguage === 'ar' ? { textAlign: 'right' } : { textAlign: 'left' }}>
+                    <span className="mcc-title">{currentLanguage === 'en' ? 'Email' : 'البريد الإلكتروني'}</span>
+                    <h3 className="mcc-value"><a href="mailto:info@ososalbnaa.com" className="phone-number ltr-text" style={{fontSize:'1.1rem'}}>info@ososalbnaa.com</a></h3>
+                  </div>
+                  <div className="mcc-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                      <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 18H4V8L12 13L20 8V18ZM12 11L4 6H20L12 11Z" />
+                    </svg>
+                  </div>
+                </div>
+
               </div>
-              <div className="info-item">
-                <h4 data-en="Phone" data-ar="الهاتف">
-                  {'📞 ' + (currentLanguage === 'en' ? 'Phone' : 'الهاتف')}
-                </h4>
-                <p>
-                  {currentLanguage === 'en' ? (
-                    <>
-                      Main Branch: <a href="tel:00966545181910" className='phone-number'>00966545181910</a><br />
-                      Al-Ahsa Branch: <a href="tel:00966566497730" className='phone-number'>00966566497730</a><br />
-                      Cairo Branch: <a href="tel:00201116999260" className='phone-number'>00201116999260</a>
-                    </>
-                  ) : (
-                    <>
-                      الفرع الرئيسي : <a href="tel:00966545181910" className='phone-number ltr-text'>00966545181910</a><br />
-                      فرع الاحساء : <a href="tel:00966566497730" className='phone-number ltr-text'>00966566497730</a><br />
-                      فرع القاهرة : <a href="tel:00201116999260" className='phone-number ltr-text'>00201116999260</a>
-                    </>
-                  )}
-                </p>
-              </div>
-              <div className="info-item">
-                <h4 data-en="Email" data-ar="البريد الإلكتروني">
-                  {'📧 ' + (currentLanguage === 'en' ? 'Email' : 'البريد الإلكتروني')}
-                </h4>
-                <p>info@ososalbnaa.com</p>
-              </div>
+              
+              <HomeContactMap currentLanguage={currentLanguage} />
             </div>
           </div>
         </div>
