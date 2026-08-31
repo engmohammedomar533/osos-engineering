@@ -34,7 +34,7 @@ const ImportantSites = React.lazy(() => import('./ImportantSites'));
 const NewsFeed = React.lazy(() => import('./NewsFeed'));
 
 // Initialize Google Analytics
-ReactGA.initialize('G-VP8CE58JYA');
+ReactGA.initialize('G-VP8CE58JY4');
 
 const AnalyticsTracker = () => {
   const location = useLocation();
