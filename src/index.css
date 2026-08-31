@@ -2199,3 +2199,26 @@ select.form-control {
   align-items: center;
 }
 
+
+/* --- Stretch Contact Form Message Box --- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.contact-form form .form-group:has(textarea) {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form form textarea {
+  flex-grow: 1;
+  min-height: 120px;
+}
