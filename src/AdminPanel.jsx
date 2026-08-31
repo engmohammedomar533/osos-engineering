@@ -410,6 +410,7 @@ const AdminPanel = ({ onLogout }) => {
 // --- Sub-components for each tab ---
 
 const ServicesManager = ({ services, formData, setFormData, handleSubmit, handleEdit, handleDelete, editingService, setEditingService }) => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -417,16 +418,26 @@ const ServicesManager = ({ services, formData, setFormData, handleSubmit, handle
 
   return (
     <div>
-      <div className="form-container">
-        <h3>{editingService ? 'Edit Service' : 'Add New Service'}</h3>
-        <form onSubmit={handleSubmit} className="form-grid">
+      <div className="header-actions">
+        <h3>Existing Services</h3>
+        <button className="btn btn-add-new" onClick={() => { setEditingService(null); setFormData({ title_en: '', title_ar: '', description_en: '', description_ar: '', image_url: '', icon_url: '' }); setIsModalOpen(true); }}>
+          + Add New Service
+        </button>
+      </div>
+
+      {isModalOpen && (
+      <div className="admin-modal-overlay">
+        <div className="admin-modal-content">
+          <button className="admin-modal-close" onClick={() => setIsModalOpen(false)}>&times;</button>
+          <h3>{editingService ? 'Edit Service' : 'Add New Service'}</h3>
+          <form onSubmit={(e) => { handleSubmit(e); setIsModalOpen(false); }} className="form-grid">
           <div className="form-group"><label>Title (EN)</label><input type="text" name="title_en" value={formData.title_en} onChange={handleChange} required /></div>
           <div className="form-group"><label>Title (AR)</label><input type="text" name="title_ar" value={formData.title_ar} onChange={handleChange} /></div>
           <div className="form-group"><label>Description (EN)</label><textarea name="description_en" value={formData.description_en} onChange={handleChange}></textarea></div>
           <div className="form-group"><label>Description (AR)</label><textarea name="description_ar" value={formData.description_ar} onChange={handleChange}></textarea></div>
           <div className="form-group">
             <label>Image URL</label>
-            <input type="text" name="image_url" value={formData.image_url} onChange={handleChange} />
+            <input type="text" name="image_url" value={formData.image_url} onChange={handleChange} className="hidden-raw-url" />
             <ImageUploader 
               label="Upload Service Cover" 
               aspectRatio="16:9"
@@ -436,7 +447,7 @@ const ServicesManager = ({ services, formData, setFormData, handleSubmit, handle
           </div>
           <div className="form-group">
             <label>Icon URL</label>
-            <input type="text" name="icon_url" value={formData.icon_url} onChange={handleChange} />
+            <input type="text" name="icon_url" value={formData.icon_url} onChange={handleChange} className="hidden-raw-url" />
             <ImageUploader 
               label="Upload Service Icon" 
               aspectRatio="1:1"
@@ -449,15 +460,16 @@ const ServicesManager = ({ services, formData, setFormData, handleSubmit, handle
             {editingService && <button type="button" onClick={() => setEditingService(null)} className="btn btn-secondary">Cancel</button>}
           </div>
         </form>
+        </div>
       </div>
+      )} 
       <div className="list-container">
-        <h3>Existing Services</h3>
         <div className="item-list">
           {services.map(s => (
             <div key={s.id} className="item-card">
               <div className="item-card-info"><span>{s.title_en}</span></div>
               <div className="item-actions">
-                <button onClick={() => handleEdit(s)} className="btn btn-edit">Edit</button>
+                <button onClick={() => { handleEdit(s); setIsModalOpen(true); }} className="btn btn-edit">Edit</button>
                 <button onClick={() => handleDelete(s.id)} className="btn btn-delete">Delete</button>
               </div>
             </div>
@@ -594,6 +606,7 @@ const AboutUsManager = ({ aboutUsData, formData, setFormData, handleSubmit }) =>
 };
 
 const ProjectsManager = ({ projects, formData, setFormData, handleSubmit, handleEdit, handleDelete, editingProject, setEditingProject }) => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
@@ -601,9 +614,19 @@ const ProjectsManager = ({ projects, formData, setFormData, handleSubmit, handle
 
   return (
     <div>
-      <div className="form-container">
-        <h3>{editingProject ? 'Edit Project' : 'Add New Project'}</h3>
-        <form onSubmit={handleSubmit} className="form-grid">
+      <div className="header-actions">
+        <h3>Existing Projects</h3>
+        <button className="btn btn-add-new" onClick={() => { setEditingProject(null); setFormData({ title: '', title_ar: '', category: '', category_ar: '', location: '', featured: false, description_en: '', description_ar: '', features_en: '', features_ar: '', images: '' }); setIsModalOpen(true); }}>
+          + Add New Project
+        </button>
+      </div>
+
+      {isModalOpen && (
+      <div className="admin-modal-overlay">
+        <div className="admin-modal-content">
+          <button className="admin-modal-close" onClick={() => setIsModalOpen(false)}>&times;</button>
+          <h3>{editingProject ? 'Edit Project' : 'Add New Project'}</h3>
+          <form onSubmit={(e) => { handleSubmit(e); setIsModalOpen(false); }} className="form-grid">
           {/* Project form fields */}
           <div className="form-group"><label>Title (EN)</label><input type="text" name="title" value={formData.title} onChange={handleChange} required /></div>
           <div className="form-group"><label>Title (AR)</label><input type="text" name="title_ar" value={formData.title_ar} onChange={handleChange} /></div>
@@ -617,7 +640,7 @@ const ProjectsManager = ({ projects, formData, setFormData, handleSubmit, handle
           <div className="form-group"><label>Features (AR, comma-separated)</label><input type="text" name="features_ar" value={formData.features_ar} onChange={handleChange} /></div>
           <div className="form-group">
             <label>Image URLs (comma-separated)</label>
-            <input type="text" name="images" value={formData.images} onChange={handleChange} />
+            <input type="text" name="images" value={formData.images} onChange={handleChange} className="hidden-raw-url" />
             <ImageUploader 
               label="Upload Project Image" 
               aspectRatio="16:9"
@@ -633,15 +656,16 @@ const ProjectsManager = ({ projects, formData, setFormData, handleSubmit, handle
             {editingProject && <button type="button" onClick={() => setEditingProject(null)} className="btn btn-secondary">Cancel</button>}
           </div>
         </form>
+        </div>
       </div>
+      )} 
       <div className="list-container">
-        <h3>Existing Projects</h3>
         <div className="item-list">
           {projects.map(p => (
             <div key={p.id} className="item-card">
               <div className="item-card-info"><span>{p.title}</span><p>{p.category}</p></div>
               <div className="item-actions">
-                <button onClick={() => handleEdit(p)} className="btn btn-edit">Edit</button>
+                <button onClick={() => { handleEdit(p); setIsModalOpen(true); }} className="btn btn-edit">Edit</button>
                 <button onClick={() => handleDelete(p.id)} className="btn btn-delete">Delete</button>
               </div>
             </div>
@@ -653,6 +677,7 @@ const ProjectsManager = ({ projects, formData, setFormData, handleSubmit, handle
 };
 
 const CredentialsManager = ({ credentials, formData, setFormData, handleSubmit, handleEdit, handleDelete, editingCredential, setEditingCredential }) => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -660,12 +685,22 @@ const CredentialsManager = ({ credentials, formData, setFormData, handleSubmit, 
 
   return (
     <div>
-      <div className="form-container">
-        <h3>{editingCredential ? 'Edit Credential' : 'Add New Credential'}</h3>
-        <form onSubmit={handleSubmit} className="form-grid">
+      <div className="header-actions">
+        <h3>Existing Credentials</h3>
+        <button className="btn btn-add-new" onClick={() => { setEditingCredential(null); setFormData({ image_url: '' }); setIsModalOpen(true); }}>
+          + Add New Credential
+        </button>
+      </div>
+
+      {isModalOpen && (
+      <div className="admin-modal-overlay">
+        <div className="admin-modal-content">
+          <button className="admin-modal-close" onClick={() => setIsModalOpen(false)}>&times;</button>
+          <h3>{editingCredential ? 'Edit Credential' : 'Add New Credential'}</h3>
+          <form onSubmit={(e) => { handleSubmit(e); setIsModalOpen(false); }} className="form-grid">
           <div className="form-group">
             <label>Image URL</label>
-            <input type="text" name="image_url" value={formData.image_url} onChange={handleChange} />
+            <input type="text" name="image_url" value={formData.image_url} onChange={handleChange} className="hidden-raw-url" />
             <ImageUploader 
               label="Upload Credential Image" 
               aspectRatio="1:1"
@@ -678,9 +713,10 @@ const CredentialsManager = ({ credentials, formData, setFormData, handleSubmit, 
             {editingCredential && <button type="button" onClick={() => setEditingCredential(null)} className="btn btn-secondary">Cancel</button>}
           </div>
         </form>
+        </div>
       </div>
+      )} 
       <div className="list-container">
-        <h3>Existing Credentials</h3>
         <div className="item-list">
           {credentials.map(cred => (
             <div key={cred.id} className="item-card">
@@ -689,7 +725,7 @@ const CredentialsManager = ({ credentials, formData, setFormData, handleSubmit, 
                 <p>{cred.image_url}</p>
               </div>
               <div className="item-actions">
-                <button onClick={() => handleEdit(cred)} className="btn btn-edit">Edit</button>
+                <button onClick={() => { handleEdit(cred); setIsModalOpen(true); }} className="btn btn-edit">Edit</button>
                 <button onClick={() => handleDelete(cred.id)} className="btn btn-delete">Delete</button>
               </div>
             </div>
@@ -701,6 +737,7 @@ const CredentialsManager = ({ credentials, formData, setFormData, handleSubmit, 
 };
 
 const PartnersManager = ({ partners, formData, setFormData, handleSubmit, handleEdit, handleDelete, editingPartner, setEditingPartner }) => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -708,16 +745,26 @@ const PartnersManager = ({ partners, formData, setFormData, handleSubmit, handle
 
   return (
     <div>
-      <div className="form-container">
-        <h3>{editingPartner ? 'Edit Partner' : 'Add New Partner'}</h3>
-        <form onSubmit={handleSubmit} className="form-grid">
+      <div className="header-actions">
+        <h3>Existing Partners</h3>
+        <button className="btn btn-add-new" onClick={() => { setEditingPartner(null); setFormData({ name: '', logo_url: '' }); setIsModalOpen(true); }}>
+          + Add New Partner
+        </button>
+      </div>
+
+      {isModalOpen && (
+      <div className="admin-modal-overlay">
+        <div className="admin-modal-content">
+          <button className="admin-modal-close" onClick={() => setIsModalOpen(false)}>&times;</button>
+          <h3>{editingPartner ? 'Edit Partner' : 'Add New Partner'}</h3>
+          <form onSubmit={(e) => { handleSubmit(e); setIsModalOpen(false); }} className="form-grid">
           <div className="form-group">
             <label>Partner Name</label>
             <input type="text" name="name" value={formData.name} onChange={handleChange} />
           </div>
           <div className="form-group">
             <label>Logo URL</label>
-            <input type="text" name="logo_url" value={formData.logo_url} onChange={handleChange} />
+            <input type="text" name="logo_url" value={formData.logo_url} onChange={handleChange} className="hidden-raw-url" />
             <ImageUploader 
               label="Upload Partner Logo" 
               aspectRatio="1:1"
@@ -730,9 +777,10 @@ const PartnersManager = ({ partners, formData, setFormData, handleSubmit, handle
             {editingPartner && <button type="button" onClick={() => setEditingPartner(null)} className="btn btn-secondary">Cancel</button>}
           </div>
         </form>
+        </div>
       </div>
+      )} 
       <div className="list-container">
-        <h3>Existing Partners</h3>
         <div className="item-list">
           {partners.map(p => (
             <div key={p.id} className="item-card">
@@ -741,7 +789,7 @@ const PartnersManager = ({ partners, formData, setFormData, handleSubmit, handle
                 <div className="item-card-info"><span>{p.name}</span></div>
               </div>
               <div className="item-actions">
-                <button onClick={() => handleEdit(p)} className="btn btn-edit">Edit</button>
+                <button onClick={() => { handleEdit(p); setIsModalOpen(true); }} className="btn btn-edit">Edit</button>
                 <button onClick={() => handleDelete(p.id)} className="btn btn-delete">Delete</button>
               </div>
             </div>
