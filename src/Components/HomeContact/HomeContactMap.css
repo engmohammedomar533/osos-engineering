@@ -1,38 +1,33 @@
 .home-map-wrapper {
-  background-color: #0b1120;
-  border-radius: 12px;
+  background-color: var(--color-surface, #ffffff);
+  border-radius: var(--radius-base, 12px);
   overflow: hidden;
-  border: 1px solid #1e293b;
+  border: 1px solid var(--color-card-border, #e9ecef);
   display: flex;
   flex-direction: column;
-  height: 300px; /* Adjust as needed */
+  height: 300px;
   margin-top: 1rem;
 }
 
 .home-map-header {
   padding: 10px 15px;
-  background-color: #0f172a;
-  color: #fca311;
+  background-color: var(--color-surface, #f8f9fa);
+  color: var(--color-text, #333);
   font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid #1e293b;
-  text-align: right;
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--color-card-border, #e9ecef);
 }
 
-/* Ensure map container takes remaining height */
 .home-map-container {
   flex-grow: 1;
   width: 100%;
-  background-color: #0b1120 !important; /* blend with tile loading */
+  background-color: #f4f4f4 !important; 
 }
 
-/* Hide leaflet control attribution for a cleaner look as requested by the UI design */
 .home-map-container .leaflet-control-attribution {
   display: none !important;
 }
 
-/* Custom Marker Styling */
 .custom-map-marker {
   background: transparent;
   border: none;
@@ -49,18 +44,18 @@
 .marker-pin-svg {
   width: 40px;
   height: 40px;
-  filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
+  filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3));
 }
 
 .marker-label {
-  background-color: #0f172a;
-  color: #fff;
+  background-color: #ffffff;
+  color: var(--color-text, #333);
   padding: 4px 10px;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  border: 1px solid #fca311;
+  border: 1px solid var(--color-card-border, #ccc);
   margin-top: -5px;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
