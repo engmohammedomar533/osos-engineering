@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, NavLink, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, NavLink, Navigate, useLocation } from 'react-router-dom';
+import ReactGA from 'react-ga4';
 import Login from './Login'; // Import the Login component
 import AdminPanel from './AdminPanel'; // Import the AdminPanel component
 import useSEO from './hooks/useSEO';
@@ -32,6 +33,16 @@ const OurLocations = React.lazy(() => import('./OurLocations'));
 const ImportantSites = React.lazy(() => import('./ImportantSites'));
 const NewsFeed = React.lazy(() => import('./NewsFeed'));
 
+// Initialize Google Analytics
+ReactGA.initialize('G-VP8CE58JYA');
+
+const AnalyticsTracker = () => {
+  const location = useLocation();
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search });
+  }, [location]);
+  return null;
+};
 
 const navItems = [
   {
@@ -587,6 +598,7 @@ function App() {
 
   return (
     <Router>
+      <AnalyticsTracker />
       <CardNav 
         items={navItems}
         currentLanguage={currentLanguage}
