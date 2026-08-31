@@ -13,7 +13,7 @@ const HomeContactMap = ({ currentLanguage }) => {
     // Makkah Headquarters Coordinates
     const lat = 21.4102649;
     const lng = 39.7895678;
-    const directionsUrl = `https://maps.google.com/?q=${lat},${lng}`;
+    const directionsUrl = "https://www.google.com/maps/place/%D8%A3%D8%B3%D8%B3+%D9%87%D9%86%D8%AF%D8%B3%D8%A9+%D8%A7%D9%84%D8%A8%D9%86%D8%A7%D8%A1+%D9%84%D9%84%D8%A7%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%D8%A7%D8%AA+%D8%A7%D9%84%D9%87%D9%86%D8%AF%D8%B3%D9%8A%D8%A9%E2%80%AD/@21.410223,39.7893699,21z/data=!4m12!1m5!3m4!2zMjHCsDI0JzM3LjAiTiAzOcKwNDcnMjIuNCJF!8m2!3d21.4102649!4d39.7895678!3m5!1s0x15c21afd0b36aec1:0xbdbe77205d8fbd43!8m2!3d21.4102943!4d39.7894074!16s%2Fg%2F11hb5mf09h?entry=ttu&g_ep=EgoyMDI2MDgyNi4wIKXMDSoASAFQAw%3D%3D";
 
     const map = L.map(mapContainerRef.current, {
       center: [lat, lng],
