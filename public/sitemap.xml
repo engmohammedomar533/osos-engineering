@@ -1,39 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Home Page -->
   <url>
     <loc>https://ososalbnaa.com/</loc>
-    <lastmod>2026-07-11</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- News Feed & Insights (High Priority for SEO updates) -->
   <url>
-    <loc>https://ososalbnaa.com/about</loc>
-    <lastmod>2026-07-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://ososalbnaa.com/news-feed</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
+
+  <!-- Key Services -->
   <url>
     <loc>https://ososalbnaa.com/services</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
+
+  <!-- Projects Showcase -->
   <url>
     <loc>https://ososalbnaa.com/projects</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- About Us -->
+  <url>
+    <loc>https://ososalbnaa.com/about</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Team -->
+  <url>
+    <loc>https://ososalbnaa.com/team</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Gallery -->
+  <url>
+    <loc>https://ososalbnaa.com/gallery</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Architectural Identity -->
+  <url>
+    <loc>https://ososalbnaa.com/architectural-identity</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Partners of Success -->
+  <url>
+    <loc>https://ososalbnaa.com/partners-of-success</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Credentials & Licensing -->
   <url>
     <loc>https://ososalbnaa.com/credentials</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Our Locations (Corrected from /locations to /our-locations) -->
+  <url>
+    <loc>https://ososalbnaa.com/our-locations</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Important Sites -->
   <url>
-    <loc>https://ososalbnaa.com/locations</loc>
-    <lastmod>2026-07-11</lastmod>
+    <loc>https://ososalbnaa.com/important-sites</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>
