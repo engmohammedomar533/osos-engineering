@@ -42,19 +42,57 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "OSOS Engineering Consultants",
-      "alternateName": "أسس البناء للاستشارات الهندسية",
-      "url": "https://ososalbnaa.com",
-      "logo": "https://ososalbnaa.com/Images/logo.png",
-      "image": "https://ososalbnaa.com/Images/logo.png",
-      "description": "OSOS Engineering & Consulting provides expert surveying, architectural, engineering and GIS consulting services in Saudi Arabia and Egypt.",
-      "telephone": "+966551600494",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Makkah",
-        "addressCountry": "SA"
-      }
+      "@graph": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://ososalbnaa.com/#organization",
+          "name": "OSOS Engineering Consultants",
+          "alternateName": "أسس البناء للاستشارات الهندسية",
+          "url": "https://ososalbnaa.com",
+          "logo": "https://ososalbnaa.com/Images/logo.png",
+          "image": "https://ososalbnaa.com/Images/logo.png",
+          "description": "Expert surveying, architectural design, engineering planning, and GIS consulting services in Saudi Arabia and Egypt.",
+          "telephone": "+966545181910",
+          "email": "info@ososalbnaa.com",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Abdullah Arif street, Al-Rusaifa district",
+            "addressLocality": "Makkah",
+            "addressCountry": "SA"
+          },
+          "department": [
+            {
+              "@type": "ProfessionalService",
+              "name": "OSOS Engineering - Al-Ahsa Branch",
+              "telephone": "+966566497730",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Al-Khaleej street, Al-Rawda district",
+                "addressLocality": "Al-Ahsa",
+                "addressCountry": "SA"
+              }
+            },
+            {
+              "@type": "ProfessionalService",
+              "name": "OSOS Engineering - Cairo Branch",
+              "telephone": "+201116999260",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "4 75th street with 12th street, Maadi",
+                "addressLocality": "Cairo",
+                "addressCountry": "EG"
+              }
+            }
+          ],
+          "sameAs": [
+            "https://www.facebook.com/profile.php?id=61564818485444",
+            "https://x.com/ososbnaa",
+            "https://www.instagram.com/ososelbnaa",
+            "https://www.linkedin.com/company/2ososelbnaa/"
+          ]
+        }
+      ]
     }
     </script>
   </head>
