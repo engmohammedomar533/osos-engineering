@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+SQLAlchemy
+pg8000
+pydantic
+requests
+vercel_blob==0.4.2
+python-dotenv
+bcrypt
+python-jose[cryptography]
+python-multipart

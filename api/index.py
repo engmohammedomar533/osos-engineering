@@ -4,7 +4,13 @@ from pydantic import BaseModel
 from . import models
 import os
 import bcrypt
-import vercel_blob
+try:
+    import vercel_blob
+except ImportError:
+    try:
+        from vercel import blob as vercel_blob
+    except ImportError:
+        vercel_blob = None
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine, text
@@ -335,7 +341,10 @@ media_router = APIRouter()
 @media_router.post("/upload-media", dependencies=[Depends(get_current_user)])
 async def upload_media(file: UploadFile = File(...)):
     try:
-        token = os.environ.get("BLOB_READ_WRITE_TOKEN")
+        if not vercel_blob:
+            raise HTTPException(status_code=500, detail="Vercel Blob library is not available.")
+        
+        token = os.environ.get("BLOB_READ_WRITE_TOKEN") or os.environ.get("vercel_blob_rw_Pc5A0JgN4XiE1myS_dSEddkRWcp6QEQ2J60B6LiT2wBhOD1_READ_WRITE_TOKEN")
         if not token:
             raise HTTPException(status_code=500, detail="Vercel Blob token is not configured on the server.")
         
