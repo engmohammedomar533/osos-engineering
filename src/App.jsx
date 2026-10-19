@@ -714,13 +714,13 @@ function App() {
                     <>
                       Main Branch: <a href="tel:00966545181910" className='phone-number'>00966545181910</a><br />
                       Al-Ahsa Branch: <a href="tel:00966566497730" className='phone-number'>00966566497730</a><br />
-                      Cairo Branch: <a href="tel:00201116999260" className='phone-number'>00201116999260</a>
+                      Cairo Branch: <a href="tel:00201039941677" className='phone-number'>00201039941677</a>
                     </>
                   ) : (
                     <>
                       المقر الرئيسي : <a href="tel:00966545181910" className='phone-number ltr-text'>00966545181910</a><br />
                       فرع الأحساء : <a href="tel:00966566497730" className='phone-number ltr-text'>00966566497730</a><br />
-                      فرع مصر : <a href="tel:00201116999260" className='phone-number ltr-text'>00201116999260</a>
+                      فرع مصر : <a href="tel:00201039941677" className='phone-number ltr-text'>00201039941677</a>
                     </>
                   )}
                 </p>
@@ -793,8 +793,8 @@ function App() {
               </div>
               <div className="contact-info-item">
                 <p dangerouslySetInnerHTML={{ __html: '📞 ' + (currentLanguage === 'en'
-                    ? "Main Branch: <a href='tel:00966545181910' class='phone-number'>00966545181910</a><br />Al-Ahsa Branch: <a href='tel:00966566497730' class='phone-number'>00966566497730</a><br />Cairo Branch: <a href='tel:00201116999260' class='phone-number'>00201116999260</a>"
-                    : "الفرع الرئيسي : <a href='tel:00966545181910' class='phone-number'>00966545181910</a><br />فرع الاحساء : <a href='tel:00966566497730' class='phone-number'>00966566497730</a><br />فرع القاهرة : <a href='tel:00201116999260' class='phone-number'>00201116999260</a>")
+                    ? "Main Branch: <a href='tel:00966545181910' class='phone-number'>00966545181910</a><br />Al-Ahsa Branch: <a href='tel:00966566497730' class='phone-number'>00966566497730</a><br />Cairo Branch: <a href='tel:00201039941677' class='phone-number'>00201039941677</a>"
+                    : "الفرع الرئيسي : <a href='tel:00966545181910' class='phone-number'>00966545181910</a><br />فرع الاحساء : <a href='tel:00966566497730' class='phone-number'>00966566497730</a><br />فرع القاهرة : <a href='tel:00201039941677' class='phone-number'>00201039941677</a>")
                 }}></p>
               </div>
               <div className="contact-info-item">
